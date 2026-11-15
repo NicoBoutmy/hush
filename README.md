@@ -1,17 +1,27 @@
 # Hush
 
-A minimal, private reader view for Chrome (Manifest V3). One job: turn a cluttered article page into a clean, readable view.
+A minimal, private reader view for Chrome and other Chromium-based browsers, such as Edge, Brave, Dia, Arc, Vivaldi and Opera (Manifest V3). One job: turn a cluttered article page into a clean, readable view.
 
 - No account, no sync, no analytics, no network requests.
 - Permissions: `activeTab`, `scripting`, `storage`. No host permissions.
 - Article extraction: Mozilla Readability 0.6.0, vendored unmodified (see `vendor/README.md`).
 
-## Load it in Chrome
+## Browser support
 
-1. Open `chrome://extensions`.
-2. Turn on **Developer mode** (top right).
+Hush uses only standard Chromium extension APIs and nothing specific to one browser, so it should work in any Chromium-based browser built on Chromium 110 or later.
+
+Installing from the Chrome Web Store:
+
+- **Chrome, Brave, Dia, Arc, Vivaldi:** install directly from the Chrome Web Store.
+- **Edge:** on the Chrome Web Store page, click **Allow extensions from other stores** when Edge asks, then install.
+- **Opera:** add Opera's **Install Chrome Extensions** add-on first, then install from the Chrome Web Store.
+
+## Load it from source
+
+1. Open your browser's extensions page: `chrome://extensions` works in most Chromium browsers. Edge also accepts `edge://extensions` and Brave `brave://extensions`.
+2. Turn on **Developer mode**. In Chrome it's at the top right; in Edge it's in the left sidebar.
 3. Click **Load unpacked** and select this folder.
-4. Optional: pin the extension from the puzzle-piece menu.
+4. Optional: pin the extension from the browser's extensions menu.
 
 After editing files, click the reload icon on the extension's card, then reload any tab you're testing.
 
@@ -22,7 +32,7 @@ After editing files, click the reload icon on the extension's card, then reload 
 - Click **Aa** (top right) for text size, theme, font, column width and line spacing. Changes apply instantly and are remembered.
 - To change the shortcut, open the extension's **Options** page → **Change shortcut**.
 
-Reader view can't run on `chrome://` pages, the Chrome Web Store or the built-in PDF viewer (Chrome blocks extensions there). The icon briefly shows "–" instead.
+Reader view can't run on the browser's own pages (`chrome://`, `edge://`, `brave://` and so on), extension stores such as the Chrome Web Store, or the built-in PDF viewer, because the browser blocks extensions there. The icon briefly shows "–" instead.
 
 ## Project layout
 
