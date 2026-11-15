@@ -53,3 +53,9 @@ Then open http://127.0.0.1:8765/test/fixture-article.html (or `fixture-nonarticl
 ```bash
 python3 tools/check_contrast.py
 ```
+
+## License
+
+Hush is released under the [MIT License](LICENSE).
+
+`vendor/Readability.js` is Copyright (c) 2010 Arc90 Inc and is licensed under the Apache License 2.0. See [vendor/LICENSE.md](vendor/LICENSE.md).
