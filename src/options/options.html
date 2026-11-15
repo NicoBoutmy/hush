@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hush options</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <main>
+    <h1>Hush</h1>
+
+    <section aria-labelledby="shortcut-heading">
+      <h2 id="shortcut-heading">Keyboard shortcut</h2>
+      <p>Toggle reader view: <kbd id="shortcut">…</kbd></p>
+      <button id="change-shortcut" type="button">Change shortcut</button>
+      <p class="hint">Chrome manages extension shortcuts itself, so this opens
+        <code>chrome://extensions/shortcuts</code>.</p>
+    </section>
+
+    <section aria-labelledby="appearance-heading">
+      <h2 id="appearance-heading">Appearance</h2>
+      <p>Font, size, theme, width and spacing are set from the <strong>Aa</strong>
+        button inside reader view and are remembered on this device.</p>
+    </section>
+
+    <section aria-labelledby="privacy-heading">
+      <h2 id="privacy-heading">Privacy</h2>
+      <p>Hush collects nothing. It has no account, no analytics and makes
+        no network requests. It only runs on a page when you click its icon or
+        press its shortcut.</p>
+    </section>
+  </main>
+  <script src="options.js"></script>
+</body>
+</html>
