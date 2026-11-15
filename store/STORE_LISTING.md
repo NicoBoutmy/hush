@@ -57,7 +57,7 @@ Free, with no paid tier. Article extraction uses Mozilla's open-source Readabili
 
 **Graphic assets** (capture them as described in `store/SCREENSHOTS.md`, into `store/assets/`):
 - Store icon: `icons/icon128.png` (128×128)
-- Screenshots (1280×800): `screenshot-1-light.png`, `screenshot-2-controls.png`, `screenshot-3-dark.png`, `screenshot-4-sepia.png`, `screenshot-5-not-article.png`
+- Screenshots (1280×800): `screenshot-1.png`, `screenshot-2-controls.png`, `screenshot-3-dark.png`, `screenshot-4-sepia.png`, `screenshot-5-not-article.png`
 - Small promo tile (440×280): `promo-small-440x280.png`
 
 **Official URL / homepage:** optional, leave blank or link the project repo.
@@ -101,7 +101,7 @@ Tick all three certifications:
 - I do not use or transfer user data for purposes that are unrelated to my item's single purpose
 - I do not use or transfer user data to determine creditworthiness or for lending purposes
 
-**Privacy policy URL:** the store needs a public URL for `store/PRIVACY.md`, for example the file on GitHub or a GitHub Pages page. Fill in `[CONTACT EMAIL]` first.
+**Privacy policy URL:** https://github.com/NicoBoutmy/hush/blob/main/store/PRIVACY.md
 
 ---
 
@@ -113,6 +113,6 @@ Tick all three certifications:
 
 ## Before you submit
 
-- [ ] Fill in the contact email in `store/PRIVACY.md` and host it publicly
+- [x] Contact email in `store/PRIVACY.md`, hosted on GitHub
 - [ ] Upload `dist/hush-<version>.zip` (built by `tools/package.sh`)
 - [ ] Verify the developer account email (required by the store)

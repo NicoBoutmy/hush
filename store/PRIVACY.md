@@ -34,4 +34,4 @@ If this policy ever changes, the new version will be published here with a new d
 
 ## Contact
 
-Questions: [CONTACT EMAIL]
+Questions: feedback@boutmy.com
