@@ -18,10 +18,10 @@ Installing from the Chrome Web Store:
 
 ## Load it from source
 
-1. Open your browser's extensions page: `chrome://extensions` works in most Chromium browsers. Edge also accepts `edge://extensions` and Brave `brave://extensions`.
-2. Turn on **Developer mode**. In Chrome it's at the top right; in Edge it's in the left sidebar.
+1. Open `chrome://extensions`.
+2. Turn on **Developer mode**.
 3. Click **Load unpacked** and select this folder.
-4. Optional: pin the extension from the browser's extensions menu.
+4. Optional: pin the extension from the extensions menu.
 
 After editing files, click the reload icon on the extension's card, then reload any tab you're testing.
 
