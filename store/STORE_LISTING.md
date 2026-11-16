@@ -1,4 +1,4 @@
-# Chrome Web Store listing: Hush
+# Chrome Web Store listing: MINT
 
 Copy-paste material for the Developer Dashboard. Character limits are noted where the store enforces them.
 
@@ -6,13 +6,13 @@ Copy-paste material for the Developer Dashboard. Character limits are noted wher
 
 ## Store listing tab
 
-**Name** (from manifest, max 75): `Hush`
+**Name** (from manifest, max 75): `MINT`
 
-> Optional: many reader extensions put the function in the name for search, e.g. `Hush – Reader View`. That only means changing `"name"` in `manifest.json`. Up to you.
+> Optional: many reader extensions put the function in the name for search, e.g. `MINT – Reader View`. That only means changing `"name"` in `manifest.json`. Up to you.
 
 **Summary** (from manifest `description`, max 132):
 ```
-A clean, private reader view for articles. No accounts, no tracking, nothing leaves your browser.
+Make It Nice to Read: a clean, private reader view for articles. No accounts, no tracking, nothing leaves your browser.
 ```
 
 **Category:** Tools (under Productivity)
@@ -20,7 +20,7 @@ A clean, private reader view for articles. No accounts, no tracking, nothing lea
 
 **Description:**
 ```
-Hush turns a cluttered article into a calm, readable page with one click, and puts it back just as quickly.
+MINT (Make It Nice to Read) turns a cluttered article into a calm, readable page with one click, and puts it back just as quickly.
 
 Ads, sidebars, pop-ups, cookie banners and autoplay videos disappear. What's left is the article: its title, author, images and text, in a single centered column with generous margins and good typography.
 
@@ -37,10 +37,10 @@ SMALL TOUCHES
 • A thin progress bar at the top shows how far along you are
 • Images stay inline, sized to the column
 • Press Esc to close, and you're back at the same spot on the original page
-• On pages that aren't articles, Hush says so instead of showing a broken view
+• On pages that aren't articles, MINT says so instead of showing a broken view
 
 QUICK TO OPEN
-Click the toolbar icon or press Alt+Shift+R (Option+Shift+R on Mac). You can change the shortcut in Hush's options.
+Click the toolbar icon or press Alt+Shift+R (Option+Shift+R on Mac). You can change the shortcut in MINT's options.
 
 ACCESSIBLE
 Every control works from the keyboard, with visible focus. All four themes meet WCAG contrast guidelines.
@@ -69,19 +69,19 @@ Free, with no paid tier. Article extraction uses Mozilla's open-source Readabili
 
 **Single purpose description:**
 ```
-Hush has one purpose: it shows the article on the current web page in a clean, distraction-free reader view, which the user can open and close from the toolbar icon or a keyboard shortcut.
+MINT has one purpose: it shows the article on the current web page in a clean, distraction-free reader view, which the user can open and close from the toolbar icon or a keyboard shortcut.
 ```
 
 **Permission justifications:**
 
 `activeTab`
 ```
-Hush needs to read the current page's article only when the user clicks the toolbar icon or presses the keyboard shortcut. activeTab grants that temporary access to that one tab, so Hush needs no broad host permissions.
+MINT needs to read the current page's article only when the user clicks the toolbar icon or presses the keyboard shortcut. activeTab grants that temporary access to that one tab, so MINT needs no broad host permissions.
 ```
 
 `scripting`
 ```
-Used to inject Hush's reader-view scripts (bundled with the extension) into the active tab when the user asks for reader view. Nothing is injected automatically or on other tabs.
+Used to inject MINT's reader-view scripts (bundled with the extension) into the active tab when the user asks for reader view. Nothing is injected automatically or on other tabs.
 ```
 
 `storage`
@@ -101,7 +101,7 @@ Tick all three certifications:
 - I do not use or transfer user data for purposes that are unrelated to my item's single purpose
 - I do not use or transfer user data to determine creditworthiness or for lending purposes
 
-**Privacy policy URL:** https://github.com/NicoBoutmy/hush/blob/main/store/PRIVACY.md
+**Privacy policy URL:** https://github.com/NicoBoutmy/mint/blob/main/store/PRIVACY.md
 
 ---
 
@@ -114,5 +114,5 @@ Tick all three certifications:
 ## Before you submit
 
 - [x] Contact email in `store/PRIVACY.md`, hosted on GitHub
-- [ ] Upload `dist/hush-<version>.zip` (built by `tools/package.sh`)
+- [ ] Upload `dist/mint-<version>.zip` (built by `tools/package.sh`)
 - [ ] Verify the developer account email (required by the store)

@@ -2,24 +2,26 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Hush promo tile</title>
+<title>MINT promo tile</title>
 <style>
   html, body { margin: 0; width: 440px; height: 280px; overflow: hidden; }
   body {
-    background: #1d1d1f; color: #f8f1e3;
-    display: flex; align-items: center; justify-content: center; gap: 26px;
-    font-family: Georgia, "Times New Roman", serif;
+    background: #fcf6ed; color: #24412f;
+    display: flex; align-items: center; justify-content: center; gap: 22px;
+    font-family: -apple-system, system-ui, "Helvetica Neue", Arial, sans-serif;
   }
-  img { width: 128px; height: 128px; margin-right: -16px; }
-  h1 { font-size: 54px; font-weight: 700; margin: 0 0 6px; letter-spacing: -0.01em; }
-  p { font: 17px/1.35 -apple-system, system-ui, "Helvetica Neue", Arial, sans-serif; color: #d8d0c0; margin: 0; }
+  .icon { width: 128px; height: 128px; margin: 0 -14px 0 -16px; }
+  .wordmark { display: block; width: 210px; height: auto; margin: 0 0 10px -4px; }
+  .tagline { font-size: 11.5px; letter-spacing: .2em; color: #3f6a52; margin: 0 0 12px; white-space: nowrap; }
+  .sub { font-size: 14px; line-height: 1.35; color: #4a5a50; margin: 0; }
 </style>
 </head>
 <body>
-  <img src="../icons/icon128.png" alt="">
+  <img class="icon" src="../icons/icon128.png" alt="">
   <div>
-    <h1>Hush</h1>
-    <p>Just the article.<br>Clean, calm and private.</p>
+    <img class="wordmark" src="wordmark.png" alt="mint">
+    <p class="tagline">MAKE IT NICE TO READ</p>
+    <p class="sub">A clean, private reader view.</p>
   </div>
 </body>
 </html>

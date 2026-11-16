@@ -1,4 +1,4 @@
-// Hush: service worker.
+// MINT: service worker.
 // The toolbar icon and the keyboard shortcut (_execute_action) both arrive
 // here. Each grants temporary activeTab access to the current tab only.
 
@@ -17,7 +17,7 @@ chrome.action.onClicked.addListener(async (tab) => {
   try {
     const [probe] = await chrome.scripting.executeScript({
       target,
-      func: () => Boolean(globalThis.__hush),
+      func: () => Boolean(globalThis.__mint),
     });
 
     if (!probe || !probe.result) {
@@ -26,7 +26,7 @@ chrome.action.onClicked.addListener(async (tab) => {
 
     await chrome.scripting.executeScript({
       target,
-      func: () => globalThis.__hush && globalThis.__hush.toggle(),
+      func: () => globalThis.__mint && globalThis.__mint.toggle(),
     });
   } catch (err) {
     // Chrome does not allow extensions on some pages (chrome://, the Web
@@ -43,6 +43,6 @@ function flashUnavailable(tabId) {
   chrome.action.setTitle({ tabId, title: "Reader view isn't available on this page" }).catch(ignore);
   setTimeout(() => {
     chrome.action.setBadgeText({ tabId, text: "" }).catch(ignore);
-    chrome.action.setTitle({ tabId, title: "Hush: toggle reader view" }).catch(ignore);
+    chrome.action.setTitle({ tabId, title: "MINT: toggle reader view" }).catch(ignore);
   }, 2000);
 }

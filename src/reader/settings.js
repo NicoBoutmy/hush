@@ -1,7 +1,7 @@
-// Hush: reader settings (defaults, allowed values, persistence).
+// MINT: reader settings (defaults, allowed values, persistence).
 // Stored only in chrome.storage.local. Never synced, never sent anywhere.
 (() => {
-  const NS = (globalThis.__hushNS = globalThis.__hushNS || {});
+  const NS = (globalThis.__mintNS = globalThis.__mintNS || {});
 
   const STORAGE_KEY = "readerSettings";
 

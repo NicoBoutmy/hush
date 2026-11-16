@@ -1,11 +1,11 @@
 #!/bin/sh
-# Build the Chrome Web Store upload: dist/hush-<version>.zip
+# Build the Chrome Web Store upload: dist/mint-<version>.zip
 # Contains only what the extension needs at runtime (no tests, tools, docs
 # or source artwork).
 set -e
 cd "$(dirname "$0")/.."
 VERSION=$(python3 -I -c 'import json; print(json.load(open("manifest.json"))["version"])')
-OUT="dist/hush-$VERSION.zip"
+OUT="dist/mint-$VERSION.zip"
 python3 -I tools/check_contrast.py >/dev/null || { echo "contrast check failed"; exit 1; }
 mkdir -p dist
 rm -f "$OUT"

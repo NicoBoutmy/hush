@@ -1,6 +1,6 @@
-# Hush
+# MINT
 
-A minimal, private reader view for Chrome and other Chromium-based browsers, such as Edge, Brave, Dia, Arc, Vivaldi and Opera (Manifest V3). One job: turn a cluttered article page into a clean, readable view.
+**Make It Nice to Read.** A minimal, private reader view for Chrome and other Chromium-based browsers, such as Edge, Brave, Dia, Arc, Vivaldi and Opera (Manifest V3). One job: turn a cluttered article page into a clean, readable view.
 
 - No account, no sync, no analytics, no network requests.
 - Permissions: `activeTab`, `scripting`, `storage`. No host permissions.
@@ -8,7 +8,7 @@ A minimal, private reader view for Chrome and other Chromium-based browsers, suc
 
 ## Browser support
 
-Hush uses only standard Chromium extension APIs and nothing specific to one browser, so it should work in any Chromium-based browser built on Chromium 110 or later.
+MINT uses only standard Chromium extension APIs and nothing specific to one browser, so it should work in any Chromium-based browser built on Chromium 110 or later.
 
 Installing from the Chrome Web Store:
 
@@ -46,10 +46,12 @@ src/reader/reader.js     overlay, Aa popover, progress bar, keyboard handling
 src/options/             options page (shortcut info + link)
 vendor/                  Mozilla Readability (Apache-2.0)
 icons/                   16/32/48/128 icons, built from icons/source/ by tools/make_icons.py
+                         (icons/source/mint-identity.png is the full brand artwork)
 tools/check_contrast.py  WCAG contrast check for every theme
 test/                    fixture pages for testing without installing the extension
 store/                   listing copy, privacy policy, screenshot guide, promo tile
-tools/package.sh         builds dist/hush-<version>.zip for the Chrome Web Store
+tools/package.sh         builds dist/mint-<version>.zip for the Chrome Web Store
+tools/capture_store_images.sh  captures the store screenshots and promo tile with headless Chrome
 ```
 
 ## Testing without installing
@@ -66,6 +68,6 @@ python3 tools/check_contrast.py
 
 ## License
 
-Hush is released under the [MIT License](LICENSE).
+MINT is released under the [MIT License](LICENSE).
 
 `vendor/Readability.js` is Copyright (c) 2010 Arc90 Inc and is licensed under the Apache License 2.0. See [vendor/LICENSE.md](vendor/LICENSE.md).
