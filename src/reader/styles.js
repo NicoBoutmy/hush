@@ -1,9 +1,9 @@
-// Hush: styles for the reader view, injected into its shadow root.
+// MINT: styles for the reader view, injected into its shadow root.
 // Kept as a string so no extension file has to be exposed to web pages
 // (no web_accessible_resources). Contrast of each theme is checked by
 // tools/check_contrast.py.
 (() => {
-  const NS = (globalThis.__hushNS = globalThis.__hushNS || {});
+  const NS = (globalThis.__mintNS = globalThis.__mintNS || {});
 
   NS.styles = String.raw`
 :host { all: initial; }

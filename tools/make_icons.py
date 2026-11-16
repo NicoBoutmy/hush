@@ -1,8 +1,9 @@
 """Build the extension icons (16/32/48/128 px) from the source artwork.
 
-Source: icons/source/hush-icon-original.png (rounded cream square on white).
-The white surround is removed by cutting the rounded square out with a clean,
-antialiased mask, then the result is box-downsampled to each size.
+Source: icons/source/mint-icon-original.png, the dark green app tile cropped
+from the brand artwork (icons/source/mint-identity.png) on its cream backdrop.
+The backdrop is removed by cutting a square, rounded tile out of the artwork
+with a clean, antialiased mask, then the result is box-downsampled to each size.
 Pure standard library, no dependencies.  Run:  python3 tools/make_icons.py
 
 Chrome guidance: the 128 px icon is 96 px of artwork with 16 px of
@@ -14,7 +15,7 @@ import zlib
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.join(HERE, "..")
-SRC = os.path.join(ROOT, "icons", "source", "hush-icon-original.png")
+SRC = os.path.join(ROOT, "icons", "source", "mint-icon-original.png")
 
 # size -> artwork size inside the canvas
 SIZES = {16: 16, 32: 30, 48: 44, 128: 96}
@@ -81,28 +82,32 @@ def write_png(path, size, rgba):
 # ------------------------------------------------------------------ processing
 
 def find_tile(w, h, bpp, px):
-    """Bounding box of the non-white tile, scanning the middle row/column."""
+    """Square box inside the dark tile, found by scanning the middle row/column.
+
+    The artwork tile is a few pixels wider than it is tall, so the box takes
+    the shorter side, centred, which keeps the glyph centred and undistorted.
+    """
     def is_bg(x, y):
         i = (y * w + x) * bpp
-        return min(px[i], px[i + 1], px[i + 2]) >= 252
+        return px[i] + px[i + 1] + px[i + 2] > 384  # cream backdrop, not dark green
 
     cy, cx = h // 2, w // 2
     left = next(x for x in range(w) if not is_bg(x, cy))
     right = next(x for x in range(w - 1, -1, -1) if not is_bg(x, cy))
     top = next(y for y in range(h) if not is_bg(cx, y))
     bottom = next(y for y in range(h - 1, -1, -1) if not is_bg(cx, y))
-    # Corner radius: how far in from the left edge the tile starts on the top row band.
-    probe_y = top + 2
-    first = next(x for x in range(w) if not is_bg(x, probe_y))
-    return left, top, right, bottom, first - left
+    side = min(right - left, bottom - top) + 1
+    mx, my = (left + right) / 2, (top + bottom) / 2
+    left, top = round(mx - side / 2), round(my - side / 2)
+    return left, top, left + side - 1, top + side - 1, side
 
 
 def render(size, art, w, bpp, px, box):
     left, top, right, bottom, _ = box
     tw, th = right - left + 1, bottom - top + 1
-    # Squircle-ish corners like the artwork: radius ~ 22% of the tile.
-    radius = 0.22 * art
-    inset = 0.012 * tw  # trim a hair so no white fringe from the source edge survives
+    # Rounded corners like the artwork: radius ~ 24% of the tile.
+    radius = 0.24 * art
+    inset = 0.02 * tw  # trim a hair so no white fringe from the source edge survives
     sx0, sy0 = left + inset, top + inset
     sw, sh = tw - 2 * inset, th - 2 * inset
     off = (size - art) / 2
@@ -144,7 +149,7 @@ def render(size, art, w, bpp, px, box):
 def main():
     w, h, bpp, px = read_png(SRC)
     box = find_tile(w, h, bpp, px)
-    print("tile box (l, t, r, b, corner):", box)
+    print("tile box (l, t, r, b, side):", box)
     for size, art in SIZES.items():
         path = os.path.join(ROOT, "icons", f"icon{size}.png")
         write_png(path, size, render(size, art, w, bpp, px, box))

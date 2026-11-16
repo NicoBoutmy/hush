@@ -1,7 +1,7 @@
 // Test-only stand-in for chrome.storage so the reader scripts can run on a
 // plain web page. Not part of the extension (not listed in the manifest).
 (() => {
-  const KEY = "__hushTestStorage";
+  const KEY = "__mintTestStorage";
   const read = () => JSON.parse(localStorage.getItem(KEY) || "{}");
   window.chrome = window.chrome || {};
   chrome.storage = {
@@ -16,7 +16,7 @@
   Element.prototype.attachShadow = function (init) { return attach.call(this, { ...init, mode: "open" }); };
   // Simulate the toolbar icon / shortcut.
   window.addEventListener("keydown", (e) => {
-    if (e.altKey && e.shiftKey && e.code === "KeyR") { e.preventDefault(); globalThis.__hush.toggle(); }
+    if (e.altKey && e.shiftKey && e.code === "KeyR") { e.preventDefault(); globalThis.__mint.toggle(); }
   });
 })();
 
@@ -33,8 +33,8 @@ window.addEventListener("load", async () => {
     const cur = (await chrome.storage.local.get("readerSettings")).readerSettings || {};
     await chrome.storage.local.set({ readerSettings: { ...cur, ...preset } });
   }
-  await globalThis.__hush.toggle();
-  const sr = document.querySelector("[data-hush]").shadowRoot;
+  await globalThis.__mint.toggle();
+  const sr = document.querySelector("[data-mint]").shadowRoot;
   if (q.has("scroll")) sr.querySelector(".cr-root").scrollTop = Number(q.get("scroll"));
   if (q.has("popover")) sr.querySelector(".cr-aa").click();
 });

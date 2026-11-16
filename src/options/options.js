@@ -1,4 +1,4 @@
-// Hush: options page. Shows the current shortcut and links to
+// MINT: options page. Shows the current shortcut and links to
 // Chrome's shortcut editor (extensions can't change shortcuts themselves).
 const shortcutEl = document.getElementById("shortcut");
 

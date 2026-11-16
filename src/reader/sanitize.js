@@ -1,9 +1,9 @@
-// Hush: sanitizer for the HTML produced by Readability.
+// MINT: sanitizer for the HTML produced by Readability.
 // Readability removes most junk, but its output is still page-controlled
 // markup, so it is parsed in an inert document and stripped of anything
 // that can run code, submit data or embed other pages before it is shown.
 (() => {
-  const NS = (globalThis.__hushNS = globalThis.__hushNS || {});
+  const NS = (globalThis.__mintNS = globalThis.__mintNS || {});
 
   const DROP_ELEMENTS = [
     "script", "style", "link", "meta", "base", "noscript", "template",

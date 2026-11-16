@@ -1,15 +1,15 @@
 {
   "manifest_version": 3,
-  "name": "Hush",
+  "name": "MINT",
   "version": "1.0.0",
-  "description": "A clean, private reader view for articles. No accounts, no tracking, nothing leaves your browser.",
+  "description": "Make It Nice to Read: a clean, private reader view for articles. No accounts, no tracking, nothing leaves your browser.",
   "minimum_chrome_version": "110",
   "permissions": ["activeTab", "scripting", "storage"],
   "background": {
     "service_worker": "src/background.js"
   },
   "action": {
-    "default_title": "Hush: toggle reader view",
+    "default_title": "MINT: toggle reader view",
     "default_icon": {
       "16": "icons/icon16.png",
       "32": "icons/icon32.png",

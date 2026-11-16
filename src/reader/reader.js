@@ -1,9 +1,9 @@
-// Hush: the reader view overlay.
+// MINT: the reader view overlay.
 // Injected on demand (toolbar icon or shortcut) into the active tab only.
-// Exposes globalThis.__hush.toggle() for the service worker.
+// Exposes globalThis.__mint.toggle() for the service worker.
 (() => {
-  if (globalThis.__hush) return;
-  const NS = globalThis.__hushNS;
+  if (globalThis.__mint) return;
+  const NS = globalThis.__mintNS;
   const S = NS.settings;
 
   const WORDS_PER_MINUTE = 230;
@@ -340,7 +340,7 @@
     const article = extract();
 
     const host = document.createElement("div");
-    host.setAttribute("data-hush", "");
+    host.setAttribute("data-mint", "");
     host.style.cssText =
       "all: initial !important; position: fixed !important; inset: 0 !important;" +
       "z-index: 2147483647 !important; display: block !important;";
@@ -472,5 +472,5 @@
     }
   }
 
-  globalThis.__hush = { toggle, isOpen: () => Boolean(state) };
+  globalThis.__mint = { toggle, isOpen: () => Boolean(state) };
 })();
