@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "MINT",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Make It Nice to Read: a clean, private reader view for articles. No accounts, no tracking, nothing leaves your browser.",
   "minimum_chrome_version": "110",
   "permissions": ["activeTab", "scripting", "storage"],
