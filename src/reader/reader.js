@@ -61,15 +61,128 @@
     });
   }
 
+  // ---------------------------------------------------------------- clutter
+
+  // Readability keeps some page furniture that sits inside the article body.
+  // Each rule below removes a block only while it stays short (BLOCK_MAX_WORDS)
+  // and never climbs past the article itself, so real text is not at risk.
+  const BLOCK_MAX_WORDS = 120;
+  // data-nosnippet is an explicit publisher signal, so it gets more room
+  // (consent overlays on embeds run long); article text is far longer still.
+  const NOSNIPPET_MAX_WORDS = 200;
+  const LABEL_MAX_CHARS = 40;
+  const STOP_TAGS = new Set(["BODY", "MAIN", "ARTICLE", "HEADER"]);
+  const IN_TEXT = "p, li, h1, h2, h3, h4, h5, h6, blockquote, figcaption, td, th";
+
+  const AD_LABEL = /^(sponsored|sponsored content|sponsored post|paid content|paid post|paid partnership|partner content|advertisement|advertorial|sponsoris[ée]|contenu sponsoris[ée]|publicit[ée]|publi-?r[ée]dactionnel|anzeige|werbung|gesponsert|patrocinado|contenido patrocinado|publicidad|sponsorizzato|contenuto sponsorizzato|pubblicit[àa]|gesponsord|advertentie)$/i;
+  const RELATED_LABEL = /^(pour aller plus loin|[àa] lire aussi|lire aussi|sur le m[êe]me sujet|read more|read next|related|related (articles|stories|posts|content|reading)|more stories|see also|you might also like|you may also like|recommended|recommended for you|mehr zum thema|weiterlesen|auch interessant|lee tambi[ée]n|te puede interesar|leggi anche|potrebbe interessarti|lees ook)$/i;
+
+  // Visible words only: <noscript> fallbacks hold raw <img> markup as text.
+  function wordCount(node) {
+    let text = node.textContent || "";
+    for (const hidden of node.querySelectorAll("noscript, script, style, template")) {
+      text = text.replace(hidden.textContent, " ");
+    }
+    return text.split(/\s+/).filter(Boolean).length;
+  }
+
+  function labelText(node) {
+    return (node.textContent || "").replace(/\s+/g, " ").trim().replace(/\s*:$/, "");
+  }
+
+  // Short standalone labels ("Sponsored", "Read more") matching `re`.
+  // Returns the outermost element that holds nothing but the label.
+  function findLabels(root, re, classHint) {
+    const found = [];
+    for (const leaf of root.querySelectorAll("*")) {
+      if (leaf.children.length) continue;
+      const text = labelText(leaf);
+      if (!text || text.length > LABEL_MAX_CHARS) continue;
+      if (!re.test(text) && !(classHint && Array.from(leaf.classList).some((c) => classHint.test(c)))) continue;
+      let node = leaf;
+      while (node.parentElement && node.parentElement !== root && labelText(node.parentElement) === text) {
+        node = node.parentElement;
+      }
+      // Category chips, breadcrumbs and headings can legitimately say these
+      // words, and a word inside a sentence is not a label.
+      if (node.closest("a, button, nav, h1, h2, h3, h4, h5, h6")) continue;
+      if (node.parentElement && node.parentElement.closest(IN_TEXT)) continue;
+      found.push(node);
+    }
+    return found;
+  }
+
+  // The largest ancestor of `node` that is still short, stopping at `root`.
+  function climb(node, root) {
+    let block = node;
+    for (let p = node.parentElement; p && p !== root && !STOP_TAGS.has(p.tagName); p = p.parentElement) {
+      if (p.querySelector("h1") || wordCount(p) > BLOCK_MAX_WORDS) break;
+      block = p;
+    }
+    return block;
+  }
+
+  // Collect first, then remove: a block may already sit inside another one.
+  function removeAll(blocks) {
+    for (const block of blocks) if (block.isConnected) block.remove();
+  }
+
+  // Before extraction, on the cloned page, while boxes are still intact:
+  // sponsored boxes, whose small "Sponsored" label Readability drops (its
+  // class matches Readability's filters) while keeping the box; and "Read
+  // more" boxes, which Readability splits so the label no longer sits with
+  // the linked titles.
+  function removeLabelledBlocks(doc) {
+    if (!doc.body) return;
+    const labels = [
+      ...findLabels(doc.body, AD_LABEL, /(^|[-_])sponsor/i),
+      ...findLabels(doc.body, RELATED_LABEL),
+    ];
+    removeAll(new Set(labels.map((l) => climb(l, doc.body))));
+  }
+
+  // A short block that is almost all links: "latest news on…" lists, link
+  // carousels. Running text and captions are never link-dense like this.
+  function isLinkList(node) {
+    const links = node.querySelectorAll("a[href]");
+    if (links.length < 3) return false;
+    const words = wordCount(node);
+    if (!words || words > BLOCK_MAX_WORDS) return false;
+    let linkWords = 0;
+    for (const a of links) linkWords += wordCount(a);
+    return linkWords / words >= 0.8;
+  }
+
+  // After extraction, on Readability's output only (so byline and metadata
+  // detection are unaffected): page furniture that survived inside the body.
+  function removeBoilerplate(root) {
+    const blocks = new Set();
+    // Publishers mark non-article furniture (consent overlays on embeds,
+    // app-install cards, newsletter prompts) with Google's data-nosnippet.
+    for (const n of root.querySelectorAll("div[data-nosnippet], section[data-nosnippet], aside[data-nosnippet]")) {
+      if (n.parentElement && n.parentElement.closest(IN_TEXT)) continue;
+      if (wordCount(n) <= NOSNIPPET_MAX_WORDS) blocks.add(n);
+    }
+    for (const n of root.querySelectorAll("div, section, aside")) {
+      if (n.parentElement && n.parentElement.closest(IN_TEXT)) continue;
+      if (isLinkList(n)) blocks.add(n);
+    }
+    removeAll(blocks);
+  }
+
   function extract() {
     try {
       const clone = document.cloneNode(true);
       promoteLazyImages(clone);
+      removeLabelledBlocks(clone);
       const article = new Readability(clone, { keepClasses: false }).parse();
       if (!article || !article.content) return null;
-      const { words, minutes } = readingMinutes(article.textContent || "");
+      // An inert document: nothing in it loads or runs.
+      const body = new DOMParser().parseFromString(`<body>${article.content}</body>`, "text/html").body;
+      removeBoilerplate(body);
+      const { words, minutes } = readingMinutes(body.textContent || "");
       if (words < MIN_ARTICLE_WORDS) return null;
-      return { ...article, minutes };
+      return { ...article, content: body.innerHTML, textContent: body.textContent, minutes };
     } catch (_) {
       return null;
     }
